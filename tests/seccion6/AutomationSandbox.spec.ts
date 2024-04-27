@@ -16,6 +16,13 @@
  * Aqui vamos a encontrar como llenar campos de texto con fill
  */
 
+/**
+ * Ch36: Checkboxes y Radio Buttons: Cómo trabajar con ellos?
+ * Aqui vamos a seleccionar opciones de un checkbox y un radiobutton mediante check();
+ * Y a des-seleccionarlos los CHECKBOX mediante uncheck();
+ * El RadioButton no permite des-seleccionar
+ */
+
 import { test, expect, Browser, Page } from '@playwright/test';
 (
     async () => {
@@ -76,6 +83,30 @@ import { test, expect, Browser, Page } from '@playwright/test';
                 await test.step('Puedo ingresar texto en el campo Un Aburrido Texto', async () => {
                     await page.getByPlaceholder('Ingresá texto').fill(textoAEscribir);
                 })
+            })
+
+            test('Puedo seleccionar Checkboxes', async ({ page }) => {
+                await test.step('Dado que navego al Sandbox de Automation de Free Range Testers', async () => {
+                    await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
+                })
+                await test.step('Puedo seleccionar el checkbox para Pasta', async () => {
+                    await page.getByLabel('Pasta 🍝').check();
+                })
+                await test.step('Puedo des-seleccionar el checkbox para Pasta', async () => {
+                    await page.getByLabel('Pasta 🍝').uncheck();
+                })
+                
+            })
+
+            test('Puedo seleccionar Radio Buttons', async ({ page }) => {
+                await test.step('Dado que navego al Sandbox de Automation de Free Range Testers', async () => {
+                    await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
+                })
+
+                await test.step('Puedo seleccionar el Radio Button para No', async () => {
+                    await page.getByLabel('No').check();
+                })
+                //El radiobutton no se des-selecciona porque no lo permite
             })
         })
     }
