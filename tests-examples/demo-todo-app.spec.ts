@@ -1,6 +1,10 @@
+//Ademas de typescript, podemos usar otros lenguajes como Java, c#, Python y javascript
+//Usamos el paradigma de programacion orientada a objetos POO
+//Estas son las principales importaciones
 import { test, expect, type Page } from '@playwright/test';
-
+//Se trabaja con el patron POM (Page object model) donde la page nos representa cada vista
 test.beforeEach(async ({ page }) => {
+  //Podemos usar metodos para interactuar con la pagina con page.
   await page.goto('https://demo.playwright.dev/todomvc');
 });
 
