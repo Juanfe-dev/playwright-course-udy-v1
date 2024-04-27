@@ -30,13 +30,18 @@
  * Usando clicks para Butones que se comportan como Dropdowns (no tipo select, tipo boton)
  */
 
+/**
+ * Ch38: BONUS: Type, simular teclas
+ * Vamos a simular que presionamos Enter
+ * O alguna combinacion de tecla como Shift+Enter
+ */
 
 import { test, expect, Browser, Page } from '@playwright/test';
 (
     async () => {
         let browser: Browser;
         let page: Page;
-        let textoAEscribir : string = 'Estoy aprendiendo Playwright ✅';
+        let textoAEscribir: string = 'Estoy aprendiendo Playwright ✅';
 
         test.describe('Acciones en el automation Sandbox', () => {
 
@@ -81,7 +86,7 @@ import { test, expect, Browser, Page } from '@playwright/test';
 
                         Hover (pasar el mouse sobre el elemento)
                         await bottonIDDinamico.hover(); 
-                 */   
+                 */
             })
 
             test('Lleno un campo de texto en Automation Sandbox', async ({ page }) => {
@@ -106,7 +111,7 @@ import { test, expect, Browser, Page } from '@playwright/test';
                 await test.step('Puedo des-seleccionar el checkbox para Pasta', async () => {
                     await page.getByLabel('Pasta 🍝').uncheck();
                 })
-                
+
             })
 
             test('Puedo seleccionar Radio Buttons', async ({ page }) => {
@@ -126,8 +131,8 @@ import { test, expect, Browser, Page } from '@playwright/test';
                     await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
                 })
 
-                await test.step('Selecicono un deporte del dropdown', async () => {  
-                    await page.getByLabel('Dropdown').selectOption('Fútbol');          
+                await test.step('Selecicono un deporte del dropdown', async () => {
+                    await page.getByLabel('Dropdown').selectOption('Fútbol');
                 })
             })
 
@@ -137,8 +142,29 @@ import { test, expect, Browser, Page } from '@playwright/test';
                 })
 
                 await test.step('Selecciono un dia de la semana', async () => {
-                  await page.getByRole('button', { name: 'Día de la semana' }).click();
-                  await page.getByRole('link', { name: 'Martes' }).click();
+                    await page.getByRole('button', { name: 'Día de la semana' }).click();
+                    await page.getByRole('link', { name: 'Martes' }).click();
+                })
+            })
+
+            //Ch38
+            test('Lleno un campo de texto en Automation Sandbox con type', async ({ page }) => {
+                await test.step('Dado que navego al Sandbox de Automation de Free Range Testers', async () => {
+                    await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
+                })
+                //Uso del type
+                await test.step('Puedo ingresar texto en el campo Un Aburrido Texto', async () => {
+                    //Esta deprecado
+                    await page.getByPlaceholder('Ingresá texto').type(textoAEscribir);
+                })
+
+                //Presionar una tecla
+                await test.step('Puedo ingresar texto en el campo Un Aburrido Texto y dar Enter', async () => {
+                    await page.getByPlaceholder('Ingresá texto').fill(textoAEscribir);
+                    await page.getByPlaceholder('Ingresá texto').press('Enter');
+
+                    //Se pueden hacer combinaciones de teclas tambien
+                    //wait page.getByPlaceholder('Ingresá texto').press('Shift+ArrowLeft');
                 })
             })
         })
