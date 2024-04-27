@@ -23,6 +23,14 @@
  * El RadioButton no permite des-seleccionar
  */
 
+/**
+ * Ch37: Dropdowns
+ * Vamos a ver dos tipos de DropDowns
+ * Usando selectOption para Dropdowns de tipo select en el DOM
+ * Usando clicks para Butones que se comportan como Dropdowns (no tipo select, tipo boton)
+ */
+
+
 import { test, expect, Browser, Page } from '@playwright/test';
 (
     async () => {
@@ -32,6 +40,7 @@ import { test, expect, Browser, Page } from '@playwright/test';
 
         test.describe('Acciones en el automation Sandbox', () => {
 
+            //Ch35
             // test('Click en Boton ID Dinamico', async ({ page }) => {
             //     page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
             // })
@@ -85,6 +94,8 @@ import { test, expect, Browser, Page } from '@playwright/test';
                 })
             })
 
+
+            //Ch36
             test('Puedo seleccionar Checkboxes', async ({ page }) => {
                 await test.step('Dado que navego al Sandbox de Automation de Free Range Testers', async () => {
                     await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
@@ -107,6 +118,28 @@ import { test, expect, Browser, Page } from '@playwright/test';
                     await page.getByLabel('No').check();
                 })
                 //El radiobutton no se des-selecciona porque no lo permite
+            })
+
+            //Ch37
+            test('Puedo seleccionar un item del Dropdown', async ({ page }) => {
+                await test.step('Dado que navego al Sandbox de Automation de Free Range Testers', async () => {
+                    await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
+                })
+
+                await test.step('Selecicono un deporte del dropdown', async () => {  
+                    await page.getByLabel('Dropdown').selectOption('Fútbol');          
+                })
+            })
+
+            test('Puedo seleccionar un dia del dropdown Dias de la Semana', async ({ page }) => {
+                await test.step('Dado que navego al Sandbox de Automation de Free Range Testers', async () => {
+                    await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
+                })
+
+                await test.step('Selecciono un dia de la semana', async () => {
+                  await page.getByRole('button', { name: 'Día de la semana' }).click();
+                  await page.getByRole('link', { name: 'Martes' }).click();
+                })
             })
         })
     }
