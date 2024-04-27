@@ -36,6 +36,12 @@
  * O alguna combinacion de tecla como Shift+Enter
  */
 
+/**
+ * Ch39: Upload de archivos y Drag and Drop 
+ * Se sube uno y varios archivos, a su vez se remueven
+ * Se hace el drag and drop de un locator a otro locator para subir un archivo
+ */
+
 import { test, expect, Browser, Page } from '@playwright/test';
 (
     async () => {
@@ -165,6 +171,32 @@ import { test, expect, Browser, Page } from '@playwright/test';
 
                     //Se pueden hacer combinaciones de teclas tambien
                     //wait page.getByPlaceholder('Ingresá texto').press('Shift+ArrowLeft');
+                })
+            })
+
+            //Ch39
+            test('Puedo subir archivos a Automation Sandbox', async ({ page }) => {
+                await test.step('Dado que navego al Sandbox de Automation de Free Range Testers', async () => {
+                    await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
+                })
+
+                await test.step('Agrego archivos para ser subidos', async () => {
+                    //La pagina de prueba no cuenta con esta funcionalidad, este test es teorico
+                    
+                    //Agregar archivo
+                    //Un archivo
+                    await page.getByLabel('Upload file').setInputFiles('pathArchivo1.pdf');
+                    // Varios archivos [lista]
+                    await page.getByLabel('Upload file').setInputFiles(['pathArchivo1.pdf', 'pathArchivo2.pdf']);
+                
+                    //Remover archivo
+                    await page.getByLabel('Upload file').setInputFiles([]);
+                })
+
+                await test.step('Arrastro un archivo al area de subir archivo ', async () => {
+                    //La pagina de prueba no cuenta con esta funcionalidad, este test es teorico
+                    //No es por coordenadas, se selecciona otro elemento web de destino
+                    await page.getByTestId('DragFrom').dragTo(page.getByTestId('DragTo'));
                 })
             })
         })
